@@ -1,0 +1,41 @@
+1.For getting table structure from Models.py 
+
+2.you can use this command ---> python manage.py sqlmigrate cricket_app 0001
+
+
+Create model Playerhistory
+--
+CREATE TABLE `cricket_app_playerhistory` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `matches` integer NOT NULL, `runs` integer NOT NULL, `highest_score` inte
+ger NOT NULL, `fifties` integer NOT NULL, `hundreds` integer NOT NULL);
+--
+-- Create model Team
+--
+CREATE TABLE `cricket_app_team` (`name` varchar(200) NOT NULL PRIMARY KEY, `logo` varchar(100) NOT NULL);
+--
+-- Create model Points
+--
+CREATE TABLE `cricket_app_points` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `points` integer UNSIGNED NOT NULL CHECK (`points` >= 0), `created_at` datetime(
+6) NOT NULL, `modified_at` datetime(6) NOT NULL, `team_id` varchar(200) NOT NULL UNIQUE);
+--
+-- Create model Players
+--
+CREATE TABLE `cricket_app_players` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `first_name` varchar(200) NOT NULL, `last_name` varchar(200) NOT NULL, `jersey_
+number` integer NOT NULL, `logo_player` varchar(100) NOT NULL, `country_id` varchar(200) NOT NULL, `player_history_id` integer NOT NULL UNIQUE);
+--
+-- Create model Matches
+--
+CREATE TABLE `cricket_app_matches` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `winning_team` varchar(100) NOT NULL, `match_number` integer UNSIGNED NOT NULL
+UNIQUE CHECK (`match_number` >= 0), `match_stadium` varchar(255) NOT NULL, `match_location` varchar(255) NOT NULL, `match_tournament` varchar(255) NOT NULL, `created
+_at` datetime(6) NOT NULL, `modified_at` datetime(6) NOT NULL);
+CREATE TABLE `cricket_app_matches_teams` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `matches_id` integer NOT NULL, `team_id` varchar(200) NOT NULL);
+ALTER TABLE `cricket_app_points` ADD CONSTRAINT `cricket_app_points_team_id_58406346_fk_cricket_app_team_name` FOREIGN KEY (`team_id`) REFERENCES `cricket_app_team`
+(`name`);
+ALTER TABLE `cricket_app_players` ADD CONSTRAINT `cricket_app_players_country_id_66195e0c_fk_cricket_app_team_name` FOREIGN KEY (`country_id`) REFERENCES `cricket_ap
+p_team` (`name`);
+ALTER TABLE `cricket_app_players` ADD CONSTRAINT `cricket_app_players_player_history_id_c0486697_fk_cricket_a` FOREIGN KEY (`player_history_id`) REFERENCES `cricket_
+app_playerhistory` (`id`);
+ALTER TABLE `cricket_app_matches_teams` ADD CONSTRAINT `cricket_app_matches_teams_matches_id_team_id_9d4b656a_uniq` UNIQUE (`matches_id`, `team_id`);
+ALTER TABLE `cricket_app_matches_teams` ADD CONSTRAINT `cricket_app_matches__matches_id_23023a5b_fk_cricket_a` FOREIGN KEY (`matches_id`) REFERENCES `cricket_app_mat
+ches` (`id`);
+ALTER TABLE `cricket_app_matches_teams` ADD CONSTRAINT `cricket_app_matches__team_id_d5e9f0fe_fk_cricket_a` FOREIGN KEY (`team_id`) REFERENCES `cricket_app_team` (`n
+ame`);

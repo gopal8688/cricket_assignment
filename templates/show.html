@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+{%block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{%if team%}
+<table align="center" border="2">
+    <tr>
+        <th>Name</th>
+        <th>Logo</th>
+    </tr>
+    {%for teams in team%}
+    <tr>
+        <th>{{teams.name}}</th>
+        <th><a href="{%url 'player'%}?name={{teams.name}}"><img src="{{teams.logo.url}}" height="100" width="100">
+        </a></th>
+    </tr>
+    {%endfor%}
+</table>
+{%endif%}
+</body>
+</html>
+{%endblock%}

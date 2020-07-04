@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+{%block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center><h2>Winning Points</h2></center>
+<table align="center" border="2">
+    <tr>
+        <th>Name</th>
+        <th>Points</th>
+    </tr>
+    {%for x in point%}
+    <tr>
+        <th>{{x.team.name}}</th>
+        <th>{{x.points}}</th>
+    </tr>
+    {%endfor%}
+</table>
+
+</body>
+</html>
+{%endblock%}

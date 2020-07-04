@@ -1,0 +1,40 @@
+{% extends 'home.html' %}
+{%block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cricket</title>
+</head>
+<body>
+<center><h2>Cricket Team Details</h2></center>
+<br>
+<table align="center" border="2">
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>j_no</th>
+        <th>logo_player</th>
+        <th>matches</th>
+        <th>runs</th>
+        <th>highest_score</th>
+        <th>fifties</th>
+        <th>hundreds</th>
+
+    </tr>
+    {%for x,y in players_info.items%}
+    <tr>
+        {%for z in y%}
+        {%if 'jpg' in z%}
+        <th><img src="{{z}}" height="100" width="100"></th>
+        {%else%}
+        <th>{{z}}</th>
+        {%endif%}
+        {%endfor%}
+    </tr>
+    {%endfor%}
+</table>
+<a href="{%url 'team'%}">Back</a>
+</body>
+</html>
+{%endblock%}

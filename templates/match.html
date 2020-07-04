@@ -1,0 +1,61 @@
+{% extends 'home.html' %}
+{%block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center><h2>Cricket Matches</h2></center>
+<form method="post">
+    {%csrf_token%}
+    <table align="center" border="2">
+        <tr>
+            <th>
+                <select name="team1">
+                    <option>select_team</option>
+                    {%for names in query_set%}
+                    <option>{{names.name}}</option>
+                    {%endfor%}
+                </select></th>
+        </tr>
+        <tr>
+            <th><select name="team2">
+                <option>select_team</option>
+                {%for x in query_set%}
+                <option>{{x.name}}</option>
+                {%endfor%}</select>
+            </th>
+        </tr>
+        <tr>
+            <th><input type="number" name="match_number" required placeholder="match_number"></th>
+        </tr>
+        <tr>
+            <th><input type="text" name="winning_team" required placeholder="winning_team"></th>
+        </tr>
+        <tr>
+            <th><input type="text" name="match_location" required placeholder="match_location"></th>
+        </tr>
+        <tr>
+            <th><input type="text" name="match_stadium" required placeholder="match_stadium"></th>
+        </tr>
+        <tr>
+            <th><input type="text" name="match_tournament" required placeholder="match_tournament"></th>
+        </tr>
+        <tr>
+            <th>
+                <button type="submit">save</button>
+            </th>
+        </tr>
+    </table>
+</form>
+{% if messages%}
+{%for message in messages%}
+{{message}}
+{%endfor%}
+{%endif%}
+
+</body>
+</html>
+{%endblock%}
